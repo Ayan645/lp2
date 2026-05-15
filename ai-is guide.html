@@ -1,0 +1,2928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>AI &amp; IS Practical Exam Guide — TECA</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --papaya:#FF7D00;--papaya-b:#FF9A35;--carbon:#0D0D0D;--carbon-m:#161616;
+  --carbon-p:#1E1E1E;--carbon-b:#2A2A2A;--silver:#C8C8C8;--silver-d:#888;
+  --white:#F5F5F5;--green:#00FF88;--blue:#3B9EFF;--red:#FF3B3B;--yellow:#FFD600;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--carbon);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
+
+/* HEADER BAR */
+.topbar{background:rgba(13,13,13,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--carbon-b);padding:14px 32px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100}
+.topbar-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:1px}
+.topbar-title span{color:var(--papaya)}
+.topbar-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--papaya);letter-spacing:3px;margin-left:auto}
+.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;margin-right:8px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+/* MAIN LAYOUT */
+.main{display:flex;height:calc(100vh - 53px);overflow:hidden}
+.panel{flex:1;overflow-y:auto;padding:24px;border-right:1px solid var(--carbon-b)}
+.panel:last-child{border-right:none}
+.panel-head{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:3px;color:var(--papaya);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--carbon-b);display:flex;align-items:center;gap:10px}
+.panel-head .icon{font-size:20px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--carbon)}
+::-webkit-scrollbar-thumb{background:var(--carbon-b);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--papaya)}
+
+/* CARDS */
+.card{background:var(--carbon-p);border:1px solid var(--carbon-b);border-radius:8px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all .25s;display:flex;gap:14px;align-items:flex-start}
+.card:hover{border-color:var(--papaya);transform:translateX(4px);box-shadow:0 0 20px rgba(255,125,0,.08)}
+.card-num{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--papaya);line-height:1;min-width:44px}
+.card-body{flex:1}
+.card-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--silver-d);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.card-diff{display:flex;gap:4px;margin-top:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--carbon-b)}
+.dot.on{background:var(--papaya)}
+.card-lang{display:inline-block;background:rgba(255,125,0,.12);border:1px solid rgba(255,125,0,.3);color:var(--papaya);font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;border-radius:3px;margin-top:6px}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);justify-content:center;align-items:center;padding:24px}
+.modal.open{display:flex}
+.modal-inner{background:var(--carbon-m);border:1px solid var(--carbon-b);border-radius:12px;width:100%;max-width:800px;max-height:90vh;overflow-y:auto;position:relative;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--silver-d);font-size:28px;cursor:pointer;transition:color .2s;z-index:10}
+.modal-close:hover{color:var(--papaya)}
+.modal-head{background:var(--carbon-p);padding:24px 28px;border-bottom:1px solid var(--carbon-b);display:flex;align-items:center;gap:18px}
+.modal-num{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:var(--papaya);line-height:1}
+.modal-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--papaya);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.modal-section{padding:20px 28px;border-top:1px solid var(--carbon-b)}
+.modal-label{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.modal-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--papaya);margin-left:6px}
+
+/* CODE */
+.code-wrap{background:#0A0A0A;border:1px solid var(--carbon-b);border-radius:6px;overflow:hidden}
+.code-top{background:var(--carbon-p);border-bottom:1px solid var(--carbon-b);padding:8px 14px;display:flex;align-items:center;justify-content:space-between}
+.cl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--papaya);letter-spacing:2px}
+.cb{background:var(--carbon-b);border:none;color:var(--silver-d);font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 10px;border-radius:3px;cursor:pointer;transition:all .2s}
+.cb:hover{background:var(--papaya);color:#000}
+.cb.copied{background:var(--green);color:#000}
+pre{padding:16px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.65;color:#D4D4D4;tab-size:4;max-height:400px;overflow-y:auto}
+
+/* VIVA */
+.vq{border:1px solid var(--carbon-b);border-radius:6px;margin-bottom:6px;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.vq:hover{border-color:var(--papaya)}
+.qq{background:var(--carbon-p);padding:12px 16px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:space-between}
+.qq::after{content:'▼';color:var(--papaya);font-size:10px;flex-shrink:0;transition:transform .3s}
+.vq.open .qq::after{transform:rotate(180deg)}
+.qa{background:#0A0A0A;padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s,padding .2s;font-size:13px;color:var(--silver);line-height:1.6}
+.vq.open .qa{max-height:200px;padding:12px 16px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .main{flex-direction:column;height:auto}
+  .panel{border-right:none;border-bottom:1px solid var(--carbon-b)}
+}
+
+/* TOAST */
+#toast{position:fixed;bottom:-60px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:10px 24px;border-radius:8px;z-index:9000;transition:bottom .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 24px rgba(0,255,136,.25);pointer-events:none}
+#toast.show{bottom:28px}
+</style>
+</head>
+<body>
+<div class="topbar">
+<div class="topbar-title">AI &amp; IS <span>Practical Guide</span></div>
+<div class="topbar-tag"><span class="pulse"></span>SPPU · TECA · Ayan Sheikh</div>
+</div>
+<div class="main">
+<div class="panel">
+<div class="panel-head"><span class="icon">⚡</span> LP2 — Artificial Intelligence</div>
+<div class="card" onclick="openModal('ai1')">
+<div class="card-num">01</div>
+<div class="card-body">
+<div class="card-sub">Graph Traversal</div>
+<div class="card-title">BFS & DFS</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot "></span><span class="dot "></span><span class="dot "></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-ai1">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('ai1')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">01</span>
+<div><div class="modal-sub">Graph Traversal</div><div class="modal-title">BFS & DFS</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+
+using namespace std;
+
+class Graph
+{
+    int V;
+    vector&lt;vector&lt;int&gt;&gt; adj;
+
+public:
+    Graph(int V)
+    {
+        this-&gt;V = V;
+        adj.resize(V);
+    }
+
+    void addEdge(int u, int v)
+    {
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    void BFS(int startNode)
+    {
+        vector&lt;bool&gt; visited(V, false);
+        queue&lt;int&gt; q;
+
+        visited[startNode] = true;
+        q.push(startNode);
+
+        cout &lt;&lt; "BFS Traversal: ";
+
+        while (!q.empty())
+        {
+            int curr = q.front();
+            q.pop();
+
+            cout &lt;&lt; curr &lt;&lt; " ";
+
+            for (int neighbor : adj[curr])
+            {
+                if (!visited[neighbor])
+                {
+                    visited[neighbor] = true;
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        cout &lt;&lt; endl;
+    }
+
+    void DFSUtil(int curr, vector&lt;bool&gt; &amp;visited)
+    {
+        visited[curr] = true;
+        cout &lt;&lt; curr &lt;&lt; " ";
+
+        for (int neighbor : adj[curr])
+        {
+            if (!visited[neighbor])
+            {
+                DFSUtil(neighbor, visited);
+            }
+        }
+    }
+
+    void DFS(int startNode)
+    {
+        vector&lt;bool&gt; visited(V, false);
+
+        cout &lt;&lt; "DFS Traversal: ";
+        DFSUtil(startNode, visited);
+
+        cout &lt;&lt; endl;
+    }
+};
+
+int main()
+{
+    Graph g(5);
+
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+
+    cout &lt;&lt; "Starting from node 0:\n";
+
+    g.BFS(0);
+    g.DFS(0);
+
+    return 0;
+}
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement Breadth First Search (BFS) and Depth First Search (DFS)
+graph traversal algorithms using C++.
+
+----------------------------------------------------------------------------
+
+WHAT IS GRAPH?
+A graph is a collection of:
+1. Vertices (Nodes)
+2. Edges (Connections)
+
+Example:
+        0
+       / \
+      1   2
+     / \
+    3   4
+
+----------------------------------------------------------------------------
+
+BFS (Breadth First Search):
+- Traverses graph level by level.
+- Uses Queue (FIFO).
+- Visits nearest nodes first.
+
+Traversal:
+0 → 1 → 2 → 3 → 4
+
+Applications:
+- Shortest path
+- GPS systems
+- Social networks
+
+Time Complexity:
+O(V + E)
+
+----------------------------------------------------------------------------
+
+DFS (Depth First Search):
+- Traverses graph depth-wise.
+- Uses Recursion or Stack.
+- Goes deep before backtracking.
+
+Traversal:
+0 → 1 → 3 → 4 → 2
+
+Applications:
+- Cycle detection
+- Maze solving
+- Backtracking
+
+Time Complexity:
+O(V + E)
+
+----------------------------------------------------------------------------
+
+DIFFERENCE BETWEEN BFS AND DFS
+
+BFS:
+- Uses Queue
+- Level-wise traversal
+- Finds shortest path
+
+DFS:
+- Uses Stack/Recursion
+- Depth-wise traversal
+- Used in backtracking
+
+----------------------------------------------------------------------------
+
+OUTPUT:
+
+Starting from node 0:
+
+BFS Traversal: 0 1 2 3 4
+
+DFS Traversal: 0 1 3 4 2
+
+============================================================================
+*/</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is BFS?</div><div class="qa">Queue-based, level-by-level traversal. Finds shortest path in unweighted graphs.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is DFS?</div><div class="qa">Stack/recursion-based, explores deep before backtracking.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Time complexity?</div><div class="qa">O(V + E) for both BFS and DFS.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">BFS vs DFS use case?</div><div class="qa">BFS → shortest path; DFS → cycle detection, topological sort.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('ai2')">
+<div class="card-num">02</div>
+<div class="card-body">
+<div class="card-sub">8-Puzzle Solver</div>
+<div class="card-title">A* Search</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot "></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-ai2">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('ai2')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">02</span>
+<div><div class="modal-sub">8-Puzzle Solver</div><div class="modal-title">A* Search</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;algorithm&gt;
+#include &lt;set&gt;
+#include &lt;unordered_set&gt;
+
+using namespace std;
+
+#define N 3
+
+vector&lt;vector&lt;int&gt;&gt; goal = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 0}
+};
+
+struct Node
+{
+    vector&lt;vector&lt;int&gt;&gt; mat;
+    int x, y;
+    int g, h;
+    Node *parent;
+};
+
+int calculateH(vector&lt;vector&lt;int&gt;&gt; &amp;mat)
+{
+    int h = 0;
+
+    for (int i = 0; i &lt; N; i++)
+    {
+        for (int j = 0; j &lt; N; j++)
+        {
+            if (mat[i][j] != 0)
+            {
+                int val = mat[i][j] - 1;
+                int gx = val / N;
+                int gy = val % N;
+
+                h += abs(i - gx) + abs(j - gy);
+            }
+        }
+    }
+
+    return h;
+}
+
+struct cmp
+{
+    bool operator()(Node *a, Node *b)
+    {
+        return (a-&gt;g + a-&gt;h) &gt; (b-&gt;g + b-&gt;h);
+    }
+};
+
+void printMatrix(vector&lt;vector&lt;int&gt;&gt; mat)
+{
+    for (auto row : mat)
+    {
+        for (int x : row)
+        {
+            cout &lt;&lt; x &lt;&lt; " ";
+        }
+        cout &lt;&lt; "\n";
+    }
+
+    cout &lt;&lt; "--------\n";
+}
+
+void printPath(Node *node)
+{
+    if (node == NULL)
+        return;
+
+    printPath(node-&gt;parent);
+    printMatrix(node-&gt;mat);
+}
+
+string toString(vector&lt;vector&lt;int&gt;&gt; &amp;mat)
+{
+    string s = "";
+
+    for (auto r : mat)
+    {
+        for (int x : r)
+        {
+            s += char(x + '0');
+        }
+    }
+
+    return s;
+}
+
+void solve(vector&lt;vector&lt;int&gt;&gt; start, int x, int y)
+{
+    priority_queue&lt;Node *, vector&lt;Node *&gt;, cmp&gt; pq;
+    unordered_set&lt;string&gt; visited;
+
+    Node *root = new Node{
+        start,
+        x,
+        y,
+        0,
+        calculateH(start),
+        NULL};
+
+    pq.push(root);
+
+    int dx[] = {1, -1, 0, 0};
+    int dy[] = {0, 0, 1, -1};
+
+    while (!pq.empty())
+    {
+        Node *cur = pq.top();
+        pq.pop();
+
+        string key = toString(cur-&gt;mat);
+
+        if (visited.count(key))
+            continue;
+
+        visited.insert(key);
+
+        if (cur-&gt;h == 0)
+        {
+            cout &lt;&lt; "Solution Found!\n\n";
+            printPath(cur);
+            return;
+        }
+
+        for (int k = 0; k &lt; 4; k++)
+        {
+            int nx = cur-&gt;x + dx[k];
+            int ny = cur-&gt;y + dy[k];
+
+            if (nx &gt;= 0 &amp;&amp; ny &gt;= 0 &amp;&amp; nx &lt; N &amp;&amp; ny &lt; N)
+            {
+                vector&lt;vector&lt;int&gt;&gt; newMat = cur-&gt;mat;
+
+                swap(newMat[cur-&gt;x][cur-&gt;y], newMat[nx][ny]);
+
+                string newKey = toString(newMat);
+
+                if (!visited.count(newKey))
+                {
+                    Node *child = new Node{
+                        newMat,
+                        nx,
+                        ny,
+                        cur-&gt;g + 1,
+                        calculateH(newMat),
+                        cur};
+
+                    pq.push(child);
+                }
+            }
+        }
+    }
+
+    cout &lt;&lt; "No Solution Exists\n";
+}
+
+int main()
+{
+    vector&lt;vector&lt;int&gt;&gt; start = {
+        {1, 2, 3},
+        {4, 0, 5},
+        {6, 7, 8}};
+
+    int x = 1, y = 1;
+
+    solve(start, x, y);
+
+    return 0;
+}
+
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To solve the 8-Puzzle problem using A* Search Algorithm.
+
+----------------------------------------------------------------------------
+
+WHAT IS 8-PUZZLE?
+8-puzzle contains:
+- 8 numbered tiles
+- 1 blank space
+
+Goal:
+Arrange tiles in correct order.
+
+Goal State:
+
+1 2 3
+4 5 6
+7 8 0
+
+0 represents blank tile.
+
+----------------------------------------------------------------------------
+
+WHAT IS A* SEARCH?
+A* is an intelligent search algorithm.
+
+Formula:
+
+f(n) = g(n) + h(n)
+
+Where:
+g(n) = Actual cost from start to current state
+h(n) = Heuristic estimated cost to goal
+f(n) = Total estimated cost
+
+A* selects node with minimum f(n).
+
+----------------------------------------------------------------------------
+
+HEURISTIC USED:
+Manhattan Distance
+
+Formula:
+
+h(n) = |x1 - x2| + |y1 - y2|
+
+It calculates distance of each tile from goal position.
+
+----------------------------------------------------------------------------
+
+DATA STRUCTURES USED:
+1. Priority Queue
+   - Selects best state first
+
+2. Unordered Set
+   - Avoids repeated states
+
+3. Matrix
+   - Stores puzzle configuration
+
+----------------------------------------------------------------------------
+
+ALGORITHM STEPS:
+1. Insert initial state into priority queue
+2. Calculate heuristic
+3. Pick state with minimum f(n)
+4. Generate new states
+5. Repeat until goal reached
+
+----------------------------------------------------------------------------
+
+APPLICATIONS:
+- Path finding
+- Games
+- Robotics
+- GPS navigation
+- AI search problems
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY:
+Depends on number of states explored.
+
+Worst case:
+Very high (Exponential)
+
+----------------------------------------------------------------------------
+
+OUTPUT:
+
+Solution Found!
+
+1 2 3
+4 0 5
+6 7 8
+--------
+
+1 2 3
+4 5 0
+6 7 8
+--------
+
+1 2 3
+4 5 6
+7 8 0
+--------
+
+============================================================================
+*/
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is A*?</div><div class="qa">A* = g(n) + h(n). Optimal with admissible heuristic.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Heuristic used?</div><div class="qa">Manhattan distance — sum of tile displacement.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Is A* complete?</div><div class="qa">Yes, if heuristic is admissible (never overestimates).</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Admissible heuristic?</div><div class="qa">One that never overestimates actual cost to goal.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('ai3')">
+<div class="card-num">03</div>
+<div class="card-body">
+<div class="card-sub">Sorting Algorithm</div>
+<div class="card-title">Selection Sort</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot "></span><span class="dot "></span><span class="dot "></span><span class="dot "></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-ai3">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('ai3')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">03</span>
+<div><div class="modal-sub">Sorting Algorithm</div><div class="modal-title">Selection Sort</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>#include &lt;iostream&gt;
+
+using namespace std;
+
+void selectionSort(int arr[], int n)
+{
+    for (int i = 0; i &lt; n - 1; i++)
+    {
+        int min = i;
+
+        for (int j = i + 1; j &lt; n; j++)
+        {
+            if (arr[j] &lt; arr[min])
+            {
+                min = j;
+            }
+        }
+
+        int temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = temp;
+    }
+}
+
+int main()
+{
+    int arr[] = {64, 25, 12, 22, 11};
+
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    selectionSort(arr, n);
+
+    cout &lt;&lt; "Sorted Array: ";
+
+    for (int i = 0; i &lt; n; i++)
+    {
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+
+    cout << endl;
+    return 0;
+}
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement Selection Sort algorithm using C++.
+
+----------------------------------------------------------------------------
+
+WHAT IS SORTING?
+Sorting means arranging data in:
+1. Ascending order
+OR
+2. Descending order
+
+Example:
+
+Before Sorting:
+64 25 12 22 11
+
+After Sorting:
+11 12 22 25 64
+
+----------------------------------------------------------------------------
+
+WHAT IS SELECTION SORT?
+Selection Sort repeatedly:
+1. Finds smallest element
+2. Places it at correct position
+
+It divides array into:
+- Sorted part
+- Unsorted part
+
+----------------------------------------------------------------------------
+
+WORKING OF SELECTION SORT
+
+PASS 1:
+Find minimum element from entire array.
+Swap with first position.
+
+11 25 12 22 64
+
+PASS 2:
+Find minimum from remaining array.
+Swap with second position.
+
+11 12 25 22 64
+
+PASS 3:
+11 12 22 25 64
+
+Final Sorted Array:
+11 12 22 25 64
+
+----------------------------------------------------------------------------
+
+ALGORITHM:
+1. Start from first index
+2. Find minimum element
+3. Swap minimum with current position
+4. Repeat for all elements
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY:
+
+Best Case:
+O(n²)
+
+Average Case:
+O(n²)
+
+Worst Case:
+O(n²)
+
+----------------------------------------------------------------------------
+
+SPACE COMPLEXITY:
+O(1)
+
+Selection Sort is an in-place sorting algorithm.
+
+----------------------------------------------------------------------------
+
+ADVANTAGES:
+1. Simple to understand
+2. Less memory usage
+3. Performs fewer swaps
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES:
+1. Slow for large data
+2. Not efficient
+3. Not stable
+
+----------------------------------------------------------------------------
+
+APPLICATIONS:
+1. Small datasets
+2. Educational purposes
+3. Memory constrained systems
+
+----------------------------------------------------------------------------
+
+OUTPUT:
+
+Sorted Array:
+11 12 22 25 64
+
+============================================================================
+*/
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Time complexity?</div><div class="qa">O(n²) in all cases.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Is it stable?</div><div class="qa">No, Selection Sort is not stable.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Space complexity?</div><div class="qa">O(1) — in-place sorting.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Number of swaps?</div><div class="qa">O(n) — at most n-1 swaps.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('ai4')">
+<div class="card-num">04</div>
+<div class="card-body">
+<div class="card-sub">Backtracking & B&B</div>
+<div class="card-title">N-Queens</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot "></span><span class="dot "></span></div>
+<span class="card-lang">Python</span>
+</div>
+</div>
+<div class="modal" id="modal-ai4">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('ai4')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">04</span>
+<div><div class="modal-sub">Backtracking & B&B</div><div class="modal-title">N-Queens</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">Python</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">Python</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>def is_safe(board, row, col, n):
+    # Check same column
+    for i in range(row):
+        if board[i] == col:
+            return False
+
+    # Check left diagonal
+    for i, j in zip(range(row - 1, -1, -1),
+                    range(col - 1, -1, -1)):
+        if board[i] == j:
+            return False
+
+    # Check right diagonal
+    for i, j in zip(range(row - 1, -1, -1),
+                    range(col + 1, n)):
+        if board[i] == j:
+            return False
+
+    return True
+
+
+def solve_backtracking(n):
+    board = [-1] * n
+
+    def solve(row):
+        if row == n:
+            print("Backtracking Solution:", board)
+            return True
+
+        for col in range(n):
+            if is_safe(board, row, col, n):
+                board[row] = col
+
+                if solve(row + 1):
+                    return True
+
+        return False
+
+    solve(0)
+
+
+def solve_branch_and_bound(n):
+    board = [-1] * n
+
+    cols = [False] * n
+    diag1 = [False] * (2 * n)  # row + col
+    diag2 = [False] * (2 * n)  # row - col + n - 1
+
+    def solve(row):
+        if row == n:
+            print("Branch &amp; Bound Solution:", board)
+            return True
+
+        for col in range(n):
+            if (not cols[col] and
+                not diag1[row + col] and
+                not diag2[row - col + n - 1]):
+
+                # Place queen
+                board[row] = col
+                cols[col] = True
+                diag1[row + col] = True
+                diag2[row - col + n - 1] = True
+
+                if solve(row + 1):
+                    return True
+
+                # Backtrack
+                cols[col] = False
+                diag1[row + col] = False
+                diag2[row - col + n - 1] = False
+
+        return False
+
+    solve(0)
+
+
+n = int(input("Enter number of queens: "))
+
+solve_backtracking(n)
+solve_branch_and_bound(n)
+"""
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To solve N-Queens problem using:
+1. Backtracking
+2. Branch and Bound
+
+----------------------------------------------------------------------------
+
+WHAT IS N-QUEENS PROBLEM?
+
+Place N queens on N×N chessboard such that:
+- No two queens attack each other.
+
+Queens attack:
+1. Same row
+2. Same column
+3. Same diagonal
+
+Example for N = 4:
+
+ Q . . .
+ . . Q .
+ . Q . .
+ . . . Q
+
+----------------------------------------------------------------------------
+
+WHAT IS BACKTRACKING?
+
+Backtracking:
+- Tries all possible solutions
+- Rejects invalid solutions
+- Goes back and tries another path
+
+It is a recursive problem-solving technique.
+
+----------------------------------------------------------------------------
+
+WORKING OF BACKTRACKING
+
+1. Place queen in safe position
+2. Move to next row
+3. If no safe position exists:
+   BACKTRACK
+4. Remove previous queen
+5. Try another position
+
+----------------------------------------------------------------------------
+
+WHAT IS BRANCH AND BOUND?
+
+Optimized version of backtracking.
+
+Uses:
+- Boolean arrays
+- Fast conflict checking
+
+Arrays used:
+1. cols[]
+2. diag1[]
+3. diag2[]
+
+This reduces repeated checking.
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY:
+
+Worst Case:
+O(N!)
+
+Because many combinations are checked.
+
+----------------------------------------------------------------------------
+
+SPACE COMPLEXITY:
+O(N)
+
+----------------------------------------------------------------------------
+
+ADVANTAGES:
+1. Efficient pruning
+2. Faster than brute force
+3. Good AI problem example
+
+----------------------------------------------------------------------------
+
+APPLICATIONS:
+1. AI search problems
+2. Constraint satisfaction problems
+3. Scheduling problems
+4. Puzzle solving
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE:
+
+Enter number of queens: 4
+
+Backtracking Solution:
+[1, 3, 0, 2]
+
+Branch & Bound Solution:
+[1, 3, 0, 2]
+
+Meaning:
+Row 0 → Queen at column 1
+Row 1 → Queen at column 3
+Row 2 → Queen at column 0
+Row 3 → Queen at column 2
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS:
+
+1. What is Backtracking?
+Trying all possibilities and rejecting invalid ones.
+
+2. What is pruning?
+Removing branches that cannot give solution.
+
+3. Difference between Backtracking and Branch & Bound?
+Branch & Bound uses optimization and faster checking.
+
+4. How many solutions exist for 8 queens?
+92 solutions.
+
+============================================================================
+"""
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is backtracking?</div><div class="qa">Try all possibilities, abandon failing paths.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Backtracking vs B&B?</div><div class="qa">B&B uses boolean arrays for O(1) conflict check.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Solutions for N=8?</div><div class="qa">92 solutions for the 8-Queens problem.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is pruning?</div><div class="qa">Cutting branches that can't lead to valid solutions.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('ai5')">
+<div class="card-num">05</div>
+<div class="card-body">
+<div class="card-sub">Rule-Based NLP</div>
+<div class="card-title">Chatbot</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot "></span><span class="dot "></span><span class="dot "></span><span class="dot "></span></div>
+<span class="card-lang">Python</span>
+</div>
+</div>
+<div class="modal" id="modal-ai5">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('ai5')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">05</span>
+<div><div class="modal-sub">Rule-Based NLP</div><div class="modal-title">Chatbot</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">Python</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">Python</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>def chatbot(first_time=True):
+    if first_time:
+        print("Welcome to Customer Support Chatbot!")
+        print("You can ask about products, prices, orders, delivery, returns, and payment methods.")
+        print("Type bye to exit.\n")
+
+    user = input("You: ").lower().strip()
+
+    if user == "bye":
+        print("Bot: Thank you for visiting. Have a great day!")
+    elif user == "hi" or user == "hello" or user == "hey":
+        print("Bot: Hello! How can I help you today?\n")
+        chatbot(False)
+    elif "product" in user:
+        print("Bot: We have mobiles, laptops, and headphones available.\n")
+        chatbot(False)
+    elif "price" in user:
+        print("Bot: Prices in INR - mobiles from Rs. 10,000, laptops from Rs. 35,000, and headphones from Rs. 1,500.\n")
+        chatbot(False)
+    elif "order" in user:
+        print("Bot: Please provide your order ID to check status.\n")
+        chatbot(False)
+    elif "delivery" in user:
+        print("Bot: Delivery usually takes 3 to 5 business days.\n")
+        chatbot(False)
+    elif "return" in user:
+        print("Bot: Products can be returned within 7 days of delivery.\n")
+        chatbot(False)
+    elif "payment" in user:
+        print("Bot: We support UPI, Debit Card, Credit Card, and Net Banking.\n")
+        chatbot(False)
+    else:
+        print("Bot: Sorry, I didn't understand.\n")
+        chatbot(False)
+
+
+if __name__ == "__main__":
+    chatbot()
+"""
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement a simple rule-based chatbot using Python.
+
+----------------------------------------------------------------------------
+
+WHAT IS A CHATBOT?
+
+A chatbot is a software program that:
+- interacts with users
+- answers queries automatically
+- simulates human conversation
+
+----------------------------------------------------------------------------
+
+WHAT IS RULE-BASED CHATBOT?
+
+A rule-based chatbot works using:
+- predefined rules
+- if-else conditions
+- keyword matching
+
+Example:
+If user types "price"
+→ bot shows product prices
+
+----------------------------------------------------------------------------
+
+WORKING OF PROGRAM
+
+1. User enters message
+2. Message converted to lowercase
+3. Program checks conditions
+4. Matching response displayed
+5. Chat continues recursively
+
+----------------------------------------------------------------------------
+
+KEY FUNCTIONS USED
+
+.lower()
+- converts text to lowercase
+
+.strip()
+- removes extra spaces
+
+input()
+- takes user input
+
+print()
+- displays chatbot response
+
+----------------------------------------------------------------------------
+
+WHAT IS NLP?
+
+NLP = Natural Language Processing
+
+It allows computers to:
+- understand human language
+- process text
+- generate responses
+
+This chatbot is a basic NLP example.
+
+----------------------------------------------------------------------------
+
+LIMITATIONS OF THIS CHATBOT
+
+1. Cannot understand complex sentences
+2. Cannot learn automatically
+3. No machine learning used
+4. Limited responses
+5. Cannot handle spelling mistakes
+
+----------------------------------------------------------------------------
+
+HOW TO IMPROVE?
+
+1. Use Machine Learning
+2. Use NLTK or spaCy
+3. Use AI models like GPT
+4. Add database support
+5. Add speech recognition
+
+----------------------------------------------------------------------------
+
+APPLICATIONS
+
+1. Customer support
+2. Banking systems
+3. E-commerce websites
+4. Hospital support systems
+5. Virtual assistants
+
+----------------------------------------------------------------------------
+
+ADVANTAGES
+
+1. Fast responses
+2. Available 24/7
+3. Reduces human work
+4. Easy to develop
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES
+
+1. Limited intelligence
+2. No emotions
+3. Cannot understand context properly
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE
+
+Welcome to Customer Support Chatbot!
+
+You: hi
+Bot: Hello! How can I help you today?
+
+You: price
+Bot: Prices in INR - mobiles from Rs. 10,000...
+
+You: bye
+Bot: Thank you for visiting. Have a great day!
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS
+
+1. What is chatbot?
+Software that interacts with users automatically.
+
+2. What type of chatbot is this?
+Rule-based chatbot.
+
+3. What is NLP?
+Natural Language Processing.
+
+4. Difference between AI chatbot and rule-based chatbot?
+AI chatbot learns automatically while rule-based uses fixed rules.
+
+5. Which language is used?
+Python.
+
+============================================================================
+"""</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What type of AI?</div><div class="qa">Rule-based deterministic chatbot using if-else.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Limitations?</div><div class="qa">Can't handle misspellings or complex queries.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is NLP?</div><div class="qa">Natural Language Processing — computers understanding language.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">How to improve?</div><div class="qa">Use ML, NLTK, spaCy, or transformers like GPT.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('ai6')">
+<div class="card-num">06</div>
+<div class="card-body">
+<div class="card-sub">Knowledge-Based</div>
+<div class="card-title">Expert System</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot "></span><span class="dot "></span><span class="dot "></span></div>
+<span class="card-lang">Python</span>
+</div>
+</div>
+<div class="modal" id="modal-ai6">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('ai6')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">06</span>
+<div><div class="modal-sub">Knowledge-Based</div><div class="modal-title">Expert System</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">Python</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">Python</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>#in exam you have just replace the content of the codes 
+#here hospital system is used to but you may use your own topic like travel guide or restaurant or education, etc
+#just make sure to ask 5 questions and give suggestions based on the answers
+
+def hospital_expert_system():
+    print("Welcome to Hospital Expert System")
+    print("Answer the following questions.")
+    print("Type 'yes' or 'no'\n")
+
+    fever = input("Do you have fever? ").lower()
+    cough = input("Do you have cough? ").lower()
+    chest_pain = input("Do you have chest pain? ").lower()
+    injury = input("Do you have any injury or fracture? ").lower()
+    stomach_pain = input("Do you have stomach pain? ").lower()
+
+    print("\n--- Diagnosis Suggestion ---")
+
+    if fever == "yes" and cough == "yes":
+        print("You may have a viral infection or flu.")
+        print("Suggested Department: General Medicine")
+
+    elif chest_pain == "yes":
+        print("You may need a heart check-up.")
+        print("Suggested Department: Cardiology")
+
+    elif injury == "yes":
+        print("You may require bone or injury treatment.")
+        print("Suggested Department: Orthopedics")
+
+    elif stomach_pain == "yes":
+        print("You may have digestive issues.")
+        print("Suggested Department: Gastroenterology")
+
+    else:
+        print("Please consult a General Physician for further diagnosis.")
+
+    print("\nThank you for using Hospital Expert System.")
+
+
+hospital_expert_system()
+"""
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement an Expert System using Python.
+
+----------------------------------------------------------------------------
+
+WHAT IS AN EXPERT SYSTEM?
+
+An Expert System is an AI-based program that:
+- mimics decision making of human experts
+- provides suggestions or diagnosis
+- uses rules and knowledge base
+
+Example:
+Hospital diagnosis system
+Banking support system
+Travel recommendation system
+
+----------------------------------------------------------------------------
+
+COMPONENTS OF EXPERT SYSTEM
+
+1. Knowledge Base
+   - Stores facts and rules
+
+2. Inference Engine
+   - Applies rules and makes decisions
+
+3. User Interface
+   - Interaction between user and system
+
+4. Explanation Facility
+   - Explains the decision
+
+----------------------------------------------------------------------------
+
+WORKING OF THIS PROGRAM
+
+1. User answers questions
+2. System checks conditions
+3. Matching rule executes
+4. Suggestion displayed
+
+Example:
+If fever = yes
+AND cough = yes
+→ Viral infection
+
+----------------------------------------------------------------------------
+
+WHAT ARE IF-ELSE RULES?
+
+Rules used for decision making.
+
+Example:
+
+IF fever == yes
+AND cough == yes
+THEN flu
+
+----------------------------------------------------------------------------
+
+FORWARD CHAINING
+
+Data-driven approach.
+
+Starts with:
+FACTS
+
+Then applies:
+RULES
+
+Finally gives:
+CONCLUSION
+
+This program uses Forward Chaining.
+
+----------------------------------------------------------------------------
+
+BACKWARD CHAINING
+
+Goal-driven approach.
+
+Starts from:
+GOAL
+
+Then checks supporting facts.
+
+----------------------------------------------------------------------------
+
+ADVANTAGES
+
+1. Fast decision making
+2. Reduces human effort
+3. Available anytime
+4. Consistent output
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES
+
+1. Limited knowledge
+2. Cannot learn automatically
+3. Difficult to maintain large rule sets
+
+----------------------------------------------------------------------------
+
+APPLICATIONS
+
+1. Medical diagnosis
+2. Banking systems
+3. Education systems
+4. Agriculture systems
+5. Technical support
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY
+Depends on number of rules checked.
+
+For this program:
+O(n)
+
+Where:
+n = number of rules
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE
+
+Welcome to Hospital Expert System
+
+Do you have fever? yes
+Do you have cough? yes
+
+You may have a viral infection or flu.
+Suggested Department: General Medicine
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS
+
+1. What is Expert System?
+AI system that mimics human expert decisions.
+
+2. What is Knowledge Base?
+Collection of rules and facts.
+
+3. What is Inference Engine?
+Applies rules to make decisions.
+
+4. What is Forward Chaining?
+Starts from facts and reaches conclusion.
+
+5. Difference between chatbot and expert system?
+Chatbot handles conversation while expert system gives decisions.
+
+============================================================================
+"""
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is an expert system?</div><div class="qa">AI system emulating human expert decisions via if-then rules.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Components?</div><div class="qa">Knowledge base, inference engine, UI, explanation facility.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Forward chaining?</div><div class="qa">Data-driven: starts from facts, applies rules.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Backward chaining?</div><div class="qa">Goal-driven: starts from goal, finds supporting facts.</div></div>
+</div>
+</div></div>
+</div>
+<div class="panel">
+<div class="panel-head"><span class="icon">🔐</span> IS — Information Security</div>
+<div class="card" onclick="openModal('is1')">
+<div class="card-num">01</div>
+<div class="card-body">
+<div class="card-sub">Bitwise Encryption</div>
+<div class="card-title">XOR / AND Cipher</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot "></span><span class="dot "></span><span class="dot "></span><span class="dot "></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-is1">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('is1')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">01</span>
+<div><div class="modal-sub">Bitwise Encryption</div><div class="modal-title">XOR / AND Cipher</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>1.	Write a C++ program that contains a string (char pointer) with a value \Hello World’. The program should AND or and XOR each character in this string with 127 and display the result.
+
+#include &lt;iostream&gt;
+using namespace std;
+int main()
+ {
+    // Define string using char pointer
+
+    char *str = (char*)"Hello World";
+    cout &lt;&lt; "Original String: " &lt;&lt; str &lt;&lt; endl;
+    cout &lt;&lt; "\nAfter AND with 127:\n";
+    for (int i = 0; str[i] != '\0'; i++) {
+        char result = str[i] &amp; 127;
+        cout &lt;&lt; result;
+    }
+    cout &lt;&lt; "\n\nAfter XOR with 127:\n";
+    for (int i = 0; str[i] != '\0'; i++) {
+        char result = str[i] ^ 127;
+        cout &lt;&lt; result;
+    }
+
+   cout &lt;&lt; endl;
+    return 0;
+}
+
+
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To perform encryption using AND and XOR bitwise operations.
+
+----------------------------------------------------------------------------
+
+WHAT IS ENCRYPTION?
+
+Encryption converts:
+- readable data (plaintext)
+
+into:
+- unreadable data (ciphertext)
+
+to provide security.
+
+----------------------------------------------------------------------------
+
+WHAT ARE BITWISE OPERATIONS?
+
+Bitwise operators work directly on binary bits.
+
+Common operators:
+1. AND  (&)
+2. OR   (|)
+3. XOR  (^)
+4. NOT  (~)
+
+----------------------------------------------------------------------------
+
+WHAT IS XOR OPERATION?
+
+XOR compares two bits.
+
+Rules:
+
+0 ^ 0 = 0
+0 ^ 1 = 1
+1 ^ 0 = 1
+1 ^ 1 = 0
+
+Important Property:
+
+A ^ B ^ B = A
+
+Meaning:
+Applying same XOR key twice gives original data.
+
+----------------------------------------------------------------------------
+
+WHY XOR WITH 127?
+
+127 in binary:
+
+01111111
+
+XOR with 127 flips lower 7 bits of ASCII character.
+
+Used for simple encryption.
+
+----------------------------------------------------------------------------
+
+WHAT IS AND OPERATION?
+
+AND compares bits.
+
+Rules:
+
+1 & 1 = 1
+Otherwise = 0
+
+AND with 127:
+- keeps lower 7 bits
+- removes most significant bit
+
+----------------------------------------------------------------------------
+
+WORKING OF PROGRAM
+
+1. Store string:
+   "Hello World"
+
+2. Traverse each character
+
+3. Perform:
+   character & 127
+
+4. Perform:
+   character ^ 127
+
+5. Display results
+
+----------------------------------------------------------------------------
+
+APPLICATIONS
+
+1. Simple encryption
+2. Password masking
+3. Data security
+4. Network communication
+
+----------------------------------------------------------------------------
+
+ADVANTAGES OF XOR ENCRYPTION
+
+1. Fast
+2. Simple
+3. Easy decryption
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES
+
+1. Weak security
+2. Easy to crack
+3. Not suitable for modern encryption
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY
+
+O(n)
+
+Where:
+n = length of string
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE
+
+Original String:
+Hello World
+
+After AND with 127:
+Hello World
+
+After XOR with 127:
+(Encrypted unreadable characters)
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS
+
+1. What is XOR cipher?
+Encryption using XOR operation.
+
+2. Why XOR is reversible?
+Because:
+A ^ B ^ B = A
+
+3. What does AND with 127 do?
+Keeps lower 7 bits.
+
+4. Is XOR symmetric?
+Yes.
+
+5. Is this secure for real systems?
+No, modern systems use AES/RSA.
+
+============================================================================
+*/
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is XOR cipher?</div><div class="qa">XOR between plaintext and key. Same key decrypts.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Why XOR 127?</div><div class="qa">127=01111111 — flips lower 7 bits of ASCII.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Symmetric?</div><div class="qa">Yes — A XOR K XOR K = A.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">AND with 127?</div><div class="qa">Clears MSB, keeps lower 7 bits.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('is2')">
+<div class="card-num">02</div>
+<div class="card-body">
+<div class="card-sub">Transposition Cipher</div>
+<div class="card-title">Columnar Transposition</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot "></span><span class="dot "></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-is2">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('is2')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">02</span>
+<div><div class="modal-sub">Transposition Cipher</div><div class="modal-title">Columnar Transposition</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>2.	Write a C++ program to perform encryption and decryption using the method of Transposition technique –Columnar Transposition.
+
+
+Example
+Given:
+•	Plaintext = HELLOWORLD 
+•	Key = ZEBRA
+Step 1: Assign Column Numbers from Key
+Key = Z E B R A
+Sort alphabetically → A B E R Z
+Now assign order:
+Key Letter	Z	E	
+B	R	
+A
+Order	4	2	1	3	0
+
+
+Step 2: Write Plaintext in Matrix (Row-wise)
+Number of columns = 5
+ Rows = ⌈10 / 5⌉ = 2
+Z	E	
+B	R	A
+H	E	L	L	
+O
+
+W	
+O	
+R	L	
+D
+
+Read Columns in Order (0 → 4)
+We read columns based on order:
+Order 0 → Column A (index 4)
+O, D → OD
+Order 1 → Column B (index 2)
+L, R → LR
+Order 2 → Column E (index 1)
+E, O → EO
+Order 3 → Column R (index 3)
+L, L → LL
+Order 4 → Column Z (index 0)
+H, W → HW
+Final Ciphertext
+👉 Cipher = ODLREOLLHW
+Decryption (Reverse Process)
+Cipher = ODLREOLLHW
+Step 1: Fill Columns Based on Order
+We fill columns in order:
+Order	Column	Values
+0	A (4)	O D
+1	B (2)	L R
+2	E (1)	E O
+3	R (3)	L L
+4	Z (0)	H W
+
+Step 2: Reconstruct Matrix
+Z	E	
+B	R	
+A
+H	E	L	L	
+O
+
+W	
+O	
+R	L	
+D
+Step 3: Read Row-wise
+           HELLOWORLD
+Final Answer
+•	Encrypted Text: ODLREOLLHW 
+•	Decrypted Text: HELLOWORLD
+
+
+
+
+
+
+
+
+Implementation:
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+
+// Function to generate order of columns based on key
+vector&lt;int&gt; getOrder(string key) {
+    int n = key.length();
+    vector&lt;pair&lt;char, int&gt;&gt; temp;
+
+    for (int i = 0; i &lt; n; i++) {
+        temp.push_back({key[i], i});
+    }
+
+    sort(temp.begin(), temp.end());
+
+    vector&lt;int&gt; order(n);
+    for (int i = 0; i &lt; n; i++) {
+        order[temp[i].second] = i;
+    }
+    return order;
+}
+
+// Encryption function
+string encrypt(string text, string key) {
+    int col = key.length();
+    int row = (text.length() + col - 1) / col;
+
+    vector&lt;vector&lt;char&gt;&gt; matrix(row, vector&lt;char&gt;(col, 'X'));
+
+    // Fill matrix row-wise
+    int k = 0;
+    for (int i = 0; i &lt; row; i++) {
+        for (int j = 0; j &lt; col; j++) {
+            if (k &lt; text.length())
+                matrix[i][j] = text[k++];
+        }
+    }
+
+    vector&lt;int&gt; order = getOrder(key);
+
+    string cipher = "";
+    // Read column-wise based on key order
+    for (int o = 0; o &lt; col; o++) {
+        for (int j = 0; j &lt; col; j++) {
+            if (order[j] == o) {
+                for (int i = 0; i &lt; row; i++) {
+                    cipher += matrix[i][j];
+                }
+            }
+        }
+    }
+
+    return cipher;
+}
+
+// Decryption function
+string decrypt(string cipher, string key) {
+    int col = key.length();
+    int row = cipher.length() / col;
+
+    vector&lt;vector&lt;char&gt;&gt; matrix(row, vector&lt;char&gt;(col));
+
+    vector&lt;int&gt; order = getOrder(key);
+
+    int k = 0;
+    // Fill matrix column-wise based on key order
+    for (int o = 0; o &lt; col; o++) {
+        for (int j = 0; j &lt; col; j++) {
+            if (order[j] == o) {
+                for (int i = 0; i &lt; row; i++) {
+                    matrix[i][j] = cipher[k++];
+                }
+            }
+        }
+    }
+
+    string text = "";
+    // Read row-wise
+    for (int i = 0; i &lt; row; i++) {
+        for (int j = 0; j &lt; col; j++) {
+            text += matrix[i][j];
+        }
+    }
+
+    return text;
+}
+
+int main() {
+    string text, key;
+
+    cout &lt;&lt; "Enter plaintext: ";
+    cin &gt;&gt; text;
+
+    cout &lt;&lt; "Enter key: ";
+    cin &gt;&gt; key;
+
+    string cipher = encrypt(text, key);
+    cout &lt;&lt; "\nEncrypted Text: " &lt;&lt; cipher &lt;&lt; endl;
+
+    string decrypted = decrypt(cipher, key);
+    cout &lt;&lt; "Decrypted Text: " &lt;&lt; decrypted &lt;&lt; endl;
+
+    return 0;
+}
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement Columnar Transposition Cipher for encryption and decryption.
+
+----------------------------------------------------------------------------
+
+WHAT IS CRYPTOGRAPHY?
+
+Cryptography is the process of:
+- securing information
+- converting readable data into unreadable form
+
+Main goals:
+1. Confidentiality
+2. Integrity
+3. Authentication
+
+----------------------------------------------------------------------------
+
+WHAT IS TRANSPOSITION CIPHER?
+
+A transposition cipher:
+- rearranges characters
+- does NOT change characters
+
+Unlike substitution cipher:
+letters remain same but positions change.
+
+----------------------------------------------------------------------------
+
+WHAT IS COLUMNAR TRANSPOSITION?
+
+In this method:
+1. Plaintext written row-wise in matrix
+2. Columns rearranged using key
+3. Cipher text read column-wise
+
+----------------------------------------------------------------------------
+
+EXAMPLE
+
+Plaintext:
+HELLOWORLD
+
+Key:
+ZEBRA
+
+Matrix:
+
+Z E B R A
+H E L L O
+W O R L D
+
+Columns are read according to alphabetical order of key.
+
+Final Cipher:
+ODLREOLLHW
+
+----------------------------------------------------------------------------
+
+WORKING OF PROGRAM
+
+ENCRYPTION:
+1. Take plaintext and key
+2. Create matrix
+3. Fill matrix row-wise
+4. Sort key alphabetically
+5. Read columns in sorted order
+6. Generate cipher text
+
+DECRYPTION:
+1. Create empty matrix
+2. Fill columns according to key order
+3. Read matrix row-wise
+4. Get original plaintext
+
+----------------------------------------------------------------------------
+
+DATA STRUCTURES USED
+
+1. Vector
+   - stores matrix
+
+2. Pair
+   - stores character and index
+
+3. String
+   - stores plaintext/ciphertext
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY
+
+Encryption:
+O(n)
+
+Decryption:
+O(n)
+
+Where:
+n = number of characters
+
+----------------------------------------------------------------------------
+
+ADVANTAGES
+
+1. Easy to implement
+2. Better than simple substitution
+3. Rearranges data securely
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES
+
+1. Weak against frequency analysis
+2. Not secure for modern systems
+3. Key management required
+
+----------------------------------------------------------------------------
+
+APPLICATIONS
+
+1. Basic cryptography learning
+2. Educational purposes
+3. Historical encryption systems
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE
+
+Enter plaintext:
+HELLOWORLD
+
+Enter key:
+ZEBRA
+
+Encrypted Text:
+ODLREOLLHW
+
+Decrypted Text:
+HELLOWORLD
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS
+
+1. What is transposition cipher?
+Cipher that rearranges character positions.
+
+2. Difference between substitution and transposition?
+Substitution changes letters.
+Transposition changes positions.
+
+3. What is role of key?
+Determines column order.
+
+4. Is this secure today?
+No, modern systems use AES and RSA.
+
+5. Why matrix is used?
+To arrange text row-wise and column-wise.
+
+============================================================================
+*/
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is transposition cipher?</div><div class="qa">Rearranges characters without changing them.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">How does it work?</div><div class="qa">Text written row-wise; columns read in key-alpha order.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is the key?</div><div class="qa">Keyword whose alphabetical order determines column order.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">vs Caesar cipher?</div><div class="qa">Caesar substitutes; columnar rearranges.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('is3')">
+<div class="card-num">03</div>
+<div class="card-body">
+<div class="card-sub">Symmetric Block Cipher</div>
+<div class="card-title">DES Algorithm</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot "></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-is3">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('is3')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">03</span>
+<div><div class="modal-sub">Symmetric Block Cipher</div><div class="modal-title">DES Algorithm</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>3.	Write a Java/C/C++/Python program to implement DES algorithm. 
+
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;openssl/des.h&gt;
+
+using namespace std;
+
+int main()
+{
+    DES_cblock key = {'m','y','k','e','y','1','2','3'};
+
+    DES_key_schedule schedule;
+
+    // Set key
+    DES_set_key_unchecked(&key, &schedule);
+
+    char plaintext[] = "HelloDES";
+
+    DES_cblock encrypted;
+
+    DES_cblock decrypted;
+
+    // Encryption
+    DES_ecb_encrypt(
+        (DES_cblock*)plaintext,
+        &encrypted,
+        &schedule,
+        DES_ENCRYPT
+    );
+
+    // Decryption
+    DES_ecb_encrypt(
+        &encrypted,
+        &decrypted,
+        &schedule,
+        DES_DECRYPT
+    );
+
+    cout &lt;&lt; "\nOriginal Text: " &lt;&lt; plaintext &lt;&lt; endl;
+
+    cout &lt;&lt; "\nEncrypted Text (Hex): ";
+
+    for (int i = 0; i &lt; 8; i++)
+    {
+        printf("%02X ", encrypted[i]);
+    }
+
+    cout &lt;&lt; "\n\nDecrypted Text: ";
+
+    for (int i = 0; i &lt; 8; i++)
+    {
+        cout &lt;&lt; decrypted[i];
+    }
+
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement DES (Data Encryption Standard) algorithm using C++.
+
+----------------------------------------------------------------------------
+
+WHAT IS DES?
+
+DES = Data Encryption Standard
+
+It is:
+- symmetric key encryption algorithm
+- block cipher algorithm
+
+Used for:
+- secure communication
+- data encryption
+- password protection
+
+----------------------------------------------------------------------------
+
+WHAT IS SYMMETRIC ENCRYPTION?
+
+Same key used for:
+1. Encryption
+2. Decryption
+
+Example:
+
+Plaintext + Key
+        ↓
+Ciphertext
+
+Ciphertext + Same Key
+        ↓
+Original Plaintext
+
+----------------------------------------------------------------------------
+
+FEATURES OF DES
+
+1. Block Size:
+   64 bits
+
+2. Key Size:
+   56 bits
+   (64 bits including parity bits)
+
+3. Number of Rounds:
+   16 rounds
+
+4. Structure:
+   Feistel Network
+
+----------------------------------------------------------------------------
+
+WHAT IS ECB MODE?
+
+ECB = Electronic Code Book
+
+In ECB mode:
+- each block encrypted separately
+
+Advantage:
+- simple implementation
+
+Disadvantage:
+- repeated patterns may appear
+
+----------------------------------------------------------------------------
+
+WORKING OF PROGRAM
+
+1. Define 8-byte secret key
+2. Create DES key schedule
+3. Encrypt plaintext using DES_ecb_encrypt()
+4. Display encrypted hexadecimal output
+5. Decrypt ciphertext
+6. Display original plaintext
+
+----------------------------------------------------------------------------
+
+IMPORTANT FUNCTIONS
+
+DES_set_key_unchecked()
+- prepares DES key schedule
+
+DES_ecb_encrypt()
+- performs encryption and decryption
+
+----------------------------------------------------------------------------
+
+WHY HEXADECIMAL OUTPUT?
+
+Encrypted data contains:
+- non-printable characters
+
+So hexadecimal format is used.
+
+Example:
+4F 2A 8C ...
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY
+
+DES performs:
+16 rounds of operations
+
+Approximate complexity:
+
+O(1)
+
+----------------------------------------------------------------------------
+
+ADVANTAGES
+
+1. Fast execution
+2. Easy implementation
+3. Historical importance
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES
+
+1. Small key size
+2. Vulnerable to brute-force attack
+3. Not secure for modern systems
+
+----------------------------------------------------------------------------
+
+WHAT REPLACED DES?
+
+1. 3DES
+2. AES
+
+AES is currently widely used.
+
+----------------------------------------------------------------------------
+
+APPLICATIONS
+
+1. Banking systems
+2. Secure communication
+3. Educational cryptography
+4. Old encryption systems
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE
+
+Original Text:
+HelloDES
+
+Encrypted Text (Hex):
+(Hexadecimal encrypted values)
+
+Decrypted Text:
+HelloDES
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS
+
+1. What is DES?
+Symmetric block cipher algorithm.
+
+2. What is DES block size?
+64 bits.
+
+3. How many rounds are used in DES?
+16 rounds.
+
+4. Why is DES insecure today?
+Because of small key size.
+
+5. Difference between DES and AES?
+AES is more secure and modern.
+
+============================================================================
+*/
+
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is DES?</div><div class="qa">64-bit block cipher, 56-bit key, 16 Feistel rounds.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Why insecure?</div><div class="qa">56-bit key is brute-forceable.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is ECB mode?</div><div class="qa">Each block encrypted independently. Patterns may leak.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What replaced DES?</div><div class="qa">3DES and AES.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('is4')">
+<div class="card-num">04</div>
+<div class="card-body">
+<div class="card-sub">Advanced Encryption</div>
+<div class="card-title">AES Algorithm</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot "></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-is4">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('is4')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">04</span>
+<div><div class="modal-sub">Advanced Encryption</div><div class="modal-title">AES Algorithm</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>4.	Write a C++ program to implement AES Algorithm. 
+
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;openssl/aes.h&gt;
+
+using namespace std;
+
+int main() {
+    unsigned char key[16] = "1234567890abcdef"; // 16-byte key
+    AES_KEY enc_key, dec_key;
+
+    AES_set_encrypt_key(key, 128, &amp;enc_key);
+    AES_set_decrypt_key(key, 128, &amp;dec_key);
+
+    unsigned char plainText[16] = "HelloAESWorld!!";
+    unsigned char encrypted[16];
+    unsigned char decrypted[16];
+
+    // Encrypt
+    AES_encrypt(plainText, encrypted, &amp;enc_key);
+
+    // Decrypt
+    AES_decrypt(encrypted, decrypted, &amp;dec_key);
+
+    cout &lt;&lt; "Original: " &lt;&lt; plainText &lt;&lt; endl;
+
+    cout &lt;&lt; "Encrypted: ";
+    for (int i = 0; i &lt; 16; i++)
+        printf("%02X ", encrypted[i]);
+
+    cout &lt;&lt; endl;
+
+    cout &lt;&lt; "Decrypted: " &lt;&lt; decrypted &lt;&lt; endl;
+
+    return 0;
+}
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement AES (Advanced Encryption Standard) algorithm using C++.
+
+----------------------------------------------------------------------------
+
+WHAT IS AES?
+
+AES = Advanced Encryption Standard
+
+It is:
+- symmetric key encryption algorithm
+- block cipher
+- modern secure encryption standard
+
+AES replaced DES because DES became insecure.
+
+----------------------------------------------------------------------------
+
+FEATURES OF AES
+
+1. Block Size:
+   128 bits
+
+2. Key Sizes:
+   128 bits
+   192 bits
+   256 bits
+
+3. Number of Rounds:
+   AES-128 → 10 rounds
+   AES-192 → 12 rounds
+   AES-256 → 14 rounds
+
+----------------------------------------------------------------------------
+
+WHAT IS SYMMETRIC ENCRYPTION?
+
+Same key used for:
+- encryption
+- decryption
+
+Sender and receiver both use same secret key.
+
+----------------------------------------------------------------------------
+
+WORKING OF AES
+
+Main AES operations:
+
+1. SubBytes
+   - byte substitution
+
+2. ShiftRows
+   - row shifting
+
+3. MixColumns
+   - column mixing
+
+4. AddRoundKey
+   - combines key with data
+
+These operations repeat multiple rounds.
+
+----------------------------------------------------------------------------
+
+WORKING OF PROGRAM
+
+1. Define 16-byte secret key
+2. Create encryption and decryption keys
+3. Encrypt plaintext
+4. Display encrypted hexadecimal output
+5. Decrypt ciphertext
+6. Display original plaintext
+
+----------------------------------------------------------------------------
+
+IMPORTANT FUNCTIONS
+
+AES_set_encrypt_key()
+- prepares encryption key
+
+AES_set_decrypt_key()
+- prepares decryption key
+
+AES_encrypt()
+- encrypts plaintext
+
+AES_decrypt()
+- decrypts ciphertext
+
+----------------------------------------------------------------------------
+
+WHY HEXADECIMAL OUTPUT?
+
+Encrypted data may contain:
+- non-printable characters
+
+So hexadecimal format is displayed.
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY
+
+AES performs fixed number of rounds.
+
+AES-128:
+O(1)
+
+----------------------------------------------------------------------------
+
+ADVANTAGES
+
+1. Very secure
+2. Fast execution
+3. Widely used
+4. Resistant to attacks
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES
+
+1. More complex than DES
+2. Key sharing required
+
+----------------------------------------------------------------------------
+
+APPLICATIONS
+
+1. HTTPS
+2. VPN
+3. Wi-Fi security
+4. File encryption
+5. Banking systems
+
+----------------------------------------------------------------------------
+
+DIFFERENCE BETWEEN AES AND DES
+
+AES:
+- More secure
+- Larger key sizes
+- Faster
+- Modern standard
+
+DES:
+- Old algorithm
+- Small key size
+- Less secure
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE
+
+Original:
+HelloAESWorld!!
+
+Encrypted:
+(Hexadecimal encrypted data)
+
+Decrypted:
+HelloAESWorld!!
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS
+
+1. What is AES?
+Advanced Encryption Standard.
+
+2. Is AES symmetric or asymmetric?
+Symmetric encryption algorithm.
+
+3. Why AES replaced DES?
+DES had small key size and became insecure.
+
+4. What is AES block size?
+128 bits.
+
+5. Where is AES used?
+HTTPS, VPN, Wi-Fi, file encryption.
+
+============================================================================
+*/
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is AES?</div><div class="qa">128-bit block cipher, 128/192/256-bit keys.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">AES-128 rounds?</div><div class="qa">10 rounds: SubBytes, ShiftRows, MixColumns, AddRoundKey.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Why better than DES?</div><div class="qa">Larger keys, more rounds, resistant to attacks.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Where is AES used?</div><div class="qa">HTTPS, TLS, VPNs, BitLocker, file encryption.</div></div>
+</div>
+</div></div>
+<div class="card" onclick="openModal('is5')">
+<div class="card-num">05</div>
+<div class="card-body">
+<div class="card-sub">Asymmetric Encryption</div>
+<div class="card-title">RSA Algorithm</div>
+<div class="card-diff"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+<span class="card-lang">C++</span>
+</div>
+</div>
+<div class="modal" id="modal-is5">
+<div class="modal-inner">
+<button class="modal-close" onclick="closeModal('is5')">&times;</button>
+<div class="modal-head">
+<span class="modal-num">05</span>
+<div><div class="modal-sub">Asymmetric Encryption</div><div class="modal-title">RSA Algorithm</div></div>
+</div>
+<div class="modal-section">
+<div class="modal-label">💻 CODE <span class="modal-lang">C++</span></div>
+<div class="code-wrap"><div class="code-top"><span class="cl">C++</span><button class="cb" onclick="copyCode(this)">COPY</button></div>
+<pre>5.	Write a C++ program to implement RSA algorithm. 
+
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+// Function to find GCD
+int gcd(int a, int b) {
+    while (b != 0) {
+        int t = b;
+        b = a % b;
+        a = t;
+    }
+    return a;
+}
+
+// Function to compute (base^exp) % mod
+long long modExp(long long base, long long exp, long long mod) {
+    long long result = 1;
+    base = base % mod;
+
+    while (exp &gt; 0) {
+        if (exp % 2 == 1)
+            result = (result * base) % mod;
+
+        base = (base * base) % mod;
+        exp = exp / 2;
+    }
+    return result;
+}
+
+int main() {
+    int p, q;
+    cout &lt;&lt; "Enter two prime numbers (p and q): ";
+    cin &gt;&gt; p &gt;&gt; q;
+
+    int n = p * q;
+    int phi = (p - 1) * (q - 1);
+
+    int e;
+    cout &lt;&lt; "Enter public key (e): ";
+    cin &gt;&gt; e;
+
+    // Check if e is valid
+    if (gcd(e, phi) != 1) {
+        cout &lt;&lt; "Invalid e! It must be coprime with phi.\n";
+        return 0;
+    }
+
+    // Find d (private key)
+    int d = 1;
+    while ((d * e) % phi != 1) {
+        d++;
+    }
+
+    cout &lt;&lt; "\nPublic Key (e, n): (" &lt;&lt; e &lt;&lt; ", " &lt;&lt; n &lt;&lt; ")";
+    cout &lt;&lt; "\nPrivate Key (d, n): (" &lt;&lt; d &lt;&lt; ", " &lt;&lt; n &lt;&lt; ")\n";
+
+    int msg;
+    cout &lt;&lt; "\nEnter message (integer): ";
+    cin &gt;&gt; msg;
+
+    // Encryption: c = (msg^e) % n
+    long long cipher = modExp(msg, e, n);
+    cout &lt;&lt; "Encrypted Message: " &lt;&lt; cipher &lt;&lt; endl;
+
+    // Decryption: m = (cipher^d) % n
+    long long decrypted = modExp(cipher, d, n);
+    cout &lt;&lt; "Decrypted Message: " &lt;&lt; decrypted &lt;&lt; endl;
+
+    return 0;
+}
+/*
+============================================================================
+                                THEORY
+============================================================================
+
+AIM:
+To implement RSA Algorithm using C++.
+
+----------------------------------------------------------------------------
+
+WHAT IS RSA?
+
+RSA is:
+- asymmetric encryption algorithm
+- public key cryptography technique
+
+Developed by:
+Rivest, Shamir, and Adleman.
+
+----------------------------------------------------------------------------
+
+WHAT IS ASYMMETRIC ENCRYPTION?
+
+Uses TWO keys:
+
+1. Public Key
+   - used for encryption
+
+2. Private Key
+   - used for decryption
+
+Different keys are used unlike AES/DES.
+
+----------------------------------------------------------------------------
+
+RSA WORKING
+
+STEP 1:
+Choose two prime numbers:
+p and q
+
+STEP 2:
+Compute:
+
+n = p * q
+
+STEP 3:
+Compute Euler Totient:
+
+φ(n) = (p - 1) * (q - 1)
+
+STEP 4:
+Choose public key:
+e
+
+Condition:
+gcd(e, φ(n)) = 1
+
+STEP 5:
+Find private key:
+d
+
+Condition:
+
+(d * e) % φ(n) = 1
+
+----------------------------------------------------------------------------
+
+ENCRYPTION FORMULA
+
+C = (M^e) % n
+
+Where:
+M = Message
+e = Public key
+C = Ciphertext
+
+----------------------------------------------------------------------------
+
+DECRYPTION FORMULA
+
+M = (C^d) % n
+
+Where:
+d = Private key
+
+----------------------------------------------------------------------------
+
+WHAT IS GCD?
+
+GCD = Greatest Common Divisor
+
+Used to check:
+e and φ(n) are coprime.
+
+----------------------------------------------------------------------------
+
+WHAT IS MODULAR EXPONENTIATION?
+
+Efficient way to calculate:
+
+(base^exp) % mod
+
+Used in RSA because numbers become very large.
+
+----------------------------------------------------------------------------
+
+WORKING OF PROGRAM
+
+1. Input prime numbers p and q
+2. Calculate n and phi
+3. Input public key e
+4. Generate private key d
+5. Encrypt message
+6. Decrypt ciphertext
+
+----------------------------------------------------------------------------
+
+TIME COMPLEXITY
+
+Modular exponentiation:
+
+O(log exponent)
+
+----------------------------------------------------------------------------
+
+ADVANTAGES
+
+1. Secure communication
+2. Public key sharing possible
+3. Widely used
+
+----------------------------------------------------------------------------
+
+DISADVANTAGES
+
+1. Slower than AES
+2. Large computations
+3. Large key sizes required
+
+----------------------------------------------------------------------------
+
+APPLICATIONS
+
+1. HTTPS
+2. Digital signatures
+3. Secure email
+4. Banking systems
+5. SSL/TLS
+
+----------------------------------------------------------------------------
+
+OUTPUT EXAMPLE
+
+Enter two prime numbers:
+3 11
+
+Enter public key:
+7
+
+Public Key:
+(7, 33)
+
+Private Key:
+(3, 33)
+
+Enter message:
+5
+
+Encrypted Message:
+14
+
+Decrypted Message:
+5
+
+----------------------------------------------------------------------------
+
+VIVA QUESTIONS
+
+1. What is RSA?
+Asymmetric encryption algorithm.
+
+2. Difference between symmetric and asymmetric encryption?
+Symmetric uses same key.
+Asymmetric uses public/private keys.
+
+3. Why prime numbers are used?
+Provides mathematical security.
+
+4. What is public key?
+Key used for encryption.
+
+5. What is private key?
+Key used for decryption.
+
+============================================================================
+*/
+
+</pre></div></div>
+<div class="modal-section">
+<div class="modal-label">🎤 VIVA Q&amp;A</div>
+<div class="vq" onclick="this.classList.toggle('open')"><div class="qq">What is RSA?</div><div class="qa">Asymmetric encryption using public/private key pair.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Key generation?</div><div class="qa">p,q primes → n=pq → φ=(p-1)(q-1) → e,d keys.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Modular exponentiation?</div><div class="qa">Efficient (base^exp) % mod computation.</div></div><div class="vq" onclick="this.classList.toggle('open')"><div class="qq">Why slow?</div><div class="qa">Large keys (2048+ bits) and modular exponentiation.</div></div>
+</div>
+</div></div>
+</div>
+</div>
+<div id="toast"></div>
+<script>
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},2200);
+}
+function openModal(id){
+  var modal=document.getElementById('modal-'+id);
+  modal.classList.add('open');document.body.style.overflow='hidden';
+  var pre=modal.querySelector('pre');
+  if(pre){
+    navigator.clipboard.writeText(pre.innerText).then(function(){
+      var btn=modal.querySelector('.cb');
+      if(btn){btn.textContent='COPIED!';btn.classList.add('copied');
+        setTimeout(function(){btn.textContent='COPY';btn.classList.remove('copied')},2200);}
+      showToast('✓ Code copied to clipboard!');
+    });
+  }
+}
+function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(m=>{m.classList.remove('open');document.body.style.overflow=''});});
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===m){m.classList.remove('open');document.body.style.overflow=''}}));
+function copyCode(btn){var pre=btn.closest('.code-wrap').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='COPIED!';btn.classList.add('copied');showToast('✓ Code copied to clipboard!');setTimeout(function(){btn.textContent='COPY';btn.classList.remove('copied')},2000)})}
+</script>
+</body></html>
